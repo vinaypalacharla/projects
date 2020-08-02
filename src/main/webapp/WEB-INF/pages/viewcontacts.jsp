@@ -1,0 +1,196 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable({
+			"pagingType" : "full_numbers"
+		});
+	});
+</script>
+<style type="text/css">
+* {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+body {
+	font-family: Helvetica;
+	-webkit-font-smoothing: antialiased;
+	background: lime;
+}
+
+h2 {
+	text-align: center;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: white;
+	padding: 30px 0;
+}
+
+/* Table Styles */
+.table-wrapper {
+	margin: 10px 70px 70px;
+	box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+}
+
+.fl-table {
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: normal;
+	border: none;
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 100%;
+	white-space: nowrap;
+	background-color: white;
+}
+
+.fl-table td, .fl-table th {
+	text-align: center;
+	padding: 8px;
+}
+
+.fl-table td {
+	border-right: 1px solid #f8f8f8;
+	font-size: 12px;
+}
+
+.fl-table thead th {
+	color: #ffffff;
+	background: #4FC3A1;
+}
+
+.fl-table thead th:nth-child(odd) {
+	color: #ffffff;
+	background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+	background: #F8F8F8;
+}
+
+/* Responsive */
+@media ( max-width : 767px) {
+	.fl-table {
+		display: block;
+		width: 100%;
+	}
+	.table-wrapper:before {
+		content: "Scroll horizontally >";
+		display: block;
+		text-align: right;
+		font-size: 11px;
+		color: white;
+		padding: 0 0 10px;
+	}
+	.fl-table thead, .fl-table tbody, .fl-table thead th {
+		display: block;
+	}
+	.fl-table thead th:last-child {
+		border-bottom: none;
+	}
+	.fl-table thead {
+		float: left;
+	}
+	.fl-table tbody {
+		width: auto;
+		position: relative;
+		overflow-x: auto;
+	}
+	.fl-table td, .fl-table th {
+		padding: 20px .625em .625em .625em;
+		height: 60px;
+		vertical-align: middle;
+		box-sizing: border-box;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 120px;
+		font-size: 13px;
+		text-overflow: ellipsis;
+	}
+	.fl-table thead th {
+		text-align: left;
+		border-bottom: 1px solid #f7f7f9;
+	}
+	.fl-table tbody tr {
+		display: table-cell;
+	}
+	.fl-table tbody tr:nth-child(odd) {
+		background: none;
+	}
+	.fl-table tr:nth-child(even) {
+		background: transparent;
+	}
+	.fl-table tr td:nth-child(odd) {
+		background: #F8F8F8;
+		border-right: 1px solid #E6E4E4;
+	}
+	.fl-table tr td:nth-child(even) {
+		border-right: 1px solid #E6E4E4;
+	}
+	.fl-table tbody td {
+		display: block;
+		text-align: center;
+	}
+}
+</style>
+</head>
+<body>
+	<div class="table-wrapper">
+		<h1 style="color: blue; text-align: center;">ViewAllContacts</h1>
+		<a href="addcontact"
+			style="color: blue; font-size: 30px; font-style: inherit;">+AddNewContact
+		</a>
+		<table id="example" class="display" style="width: 100%" border="1"
+			class="fl-table">
+			<thead>
+				<tr>
+					<th>SrNo</th>
+					<th>contactName</th>
+					<th>contactEmail</th>
+					<th>contactNumber</th>
+					<th>Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="contact" items="${listcontacts}" varStatus="index">
+
+					<tr>
+						<td><c:out value="${index.count}" /></td>
+						<td><c:out value="${contact.contactName}" /></td>
+						<td><c:out value="${contact.contactEmail}" /></td>
+						<td><c:out value="${contact.contactPhNo}" /></td>
+						<td><a href='editcontact?cid=${contact.contactId}'>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+							href='deletecontact?did=${contact.contactId}'
+							onclick="return confirm('Are you sure,you want to delete this record?')">Delete</a></td>
+
+					</tr>
+				</c:forEach>
+			</tbody>
+
+		</table>
+
+	</div>
+
+
+
+</body>
+
+
+</html>
